@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroScript : MonoBehaviour {
 
+
+    //Hero declarations
     public float jumpForce = 7.0f;
     private bool onGround = false;
     public int movementSpeed = 4;
     private Animator anim;
- 
+
     Vector2 originalPosH;
     public GameObject hero;
     
@@ -36,7 +39,8 @@ public class HeroScript : MonoBehaviour {
         {
             Rigidbody2D rb1 = GetComponent<Rigidbody2D>();
             rb1.velocity = new Vector2(movementSpeed, 0);
-        }        
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -44,4 +48,6 @@ public class HeroScript : MonoBehaviour {
         onGround = true;
         print("Hero has touched ground");
     }
+    
+    
 }
