@@ -3,31 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour {
+public class ScoreManager : MonoBehaviour
+{
 
-   
+
 
     public Text scoreText;
     private float score;
     private float startTime;
     public Text livesText;
     private float lives = 3;
+    public float jumpCounter;
+
+    public GameObject hero;
+    public Text playerHealth;
+    
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         ScoreIncrease();
-         DisplayLives();
+        DisplayLives();
+        
+    }
+    public void IncreaseOnJump()
+    {
+        jumpCounter += 2;
     }
 
     public void ScoreIncrease()
     {
         score = (int)(Time.time - startTime);
-        scoreText.text = "Score: " + score;
+        scoreText.text = "S: " + score;
     }
 
     public void DisplayLives()
@@ -35,9 +48,6 @@ public class ScoreManager : MonoBehaviour {
         livesText.text = "lives: " + lives;
     }
 
-    public void IncreaseOnJump()
-    {
-        score += 2;
-        Debug.Log("increadfka");
-    }
+    
+
 }

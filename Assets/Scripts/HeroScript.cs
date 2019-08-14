@@ -9,8 +9,11 @@ public class HeroScript : MonoBehaviour {
     //Hero declarations
     public float jumpForce = 7.0f;
     private bool onGround = false;
-    public int movementSpeed = 4;
+    public int movementSpeedRight = 4;
+    public int movementSpeedLeft = 4;
     private Animator anim;
+    public float health = 100;
+    public Text healthText;
 
     Vector2 originalPosH;
     public GameObject hero;
@@ -35,12 +38,21 @@ public class HeroScript : MonoBehaviour {
                 print("Hero has jumped");
             }
         }
-        if (onGround == true)
+
+        if (Input.GetKey("right") && onGround == true)
         {
             Rigidbody2D rb1 = GetComponent<Rigidbody2D>();
-            rb1.velocity = new Vector2(movementSpeed, 0);
+            rb1.velocity = new Vector2(movementSpeedRight, 0);
+            anim.SetTrigger("RunRight");
         }
 
+        if (Input.GetKey("left") && onGround == true)
+        {
+            Rigidbody2D rb1 = GetComponent<Rigidbody2D>();
+            rb1.velocity = new Vector2(-movementSpeedLeft, 0);
+            anim.SetTrigger("RunLeft");
+        }
+        DisplayHealth();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -48,6 +60,11 @@ public class HeroScript : MonoBehaviour {
         onGround = true;
         print("Hero has touched ground");
     }
-    
-    
+
+    public void DisplayHealth()
+    {
+        healthText.text = "H: " + health;
+    }
+
+
 }
