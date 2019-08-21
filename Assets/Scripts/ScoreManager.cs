@@ -11,12 +11,13 @@ public class ScoreManager : MonoBehaviour
     public Text scoreText;
     private float score;
     private float startTime;
-    public Text livesText;
-    private float lives = 3;
+    //public Text livesText;
+    //public float lives = 3;
     public float jumpCounter;
 
     public GameObject hero;
-    public Text playerHealth;
+
+    HeroScript heroScript;
     
 
     // Use this for initialization
@@ -29,7 +30,7 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         ScoreIncrease();
-        DisplayLives();
+      //  DisplayLives();
         
     }
     public void IncreaseOnJump()
@@ -43,11 +44,12 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = "S: " + score;
     }
 
-    public void DisplayLives()
+   /* public void DisplayLives()
     {
         livesText.text = "lives: " + lives;
+        
     }
-
+    */
     
 
 }

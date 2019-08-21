@@ -9,6 +9,9 @@ public class LazerScript : MonoBehaviour {
     // Use this for initialization
     private void OnTriggerStay2D(Collider2D collision)
     {
-        heroScript.health -= 0.5f;
+        if (heroScript.health >= 0)
+        {
+            heroScript.health -= 0.5f;
+        }
     }
 }

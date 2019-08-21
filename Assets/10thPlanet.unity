@@ -2643,10 +2643,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1268818171}
-  livesText: {fileID: 1754910866}
   jumpCounter: 0
   hero: {fileID: 1388676719}
-  playerHealth: {fileID: 1964777614}
 --- !u!1 &1285471608
 GameObject:
   m_ObjectHideFlags: 0
@@ -3086,7 +3084,12 @@ MonoBehaviour:
   movementSpeedLeft: 4
   health: 100
   healthText: {fileID: 1964777614}
+  lives: 3
+  livesText: {fileID: 1754910866}
   hero: {fileID: 1388676719}
+  hero1: {fileID: 1388676722}
+  heroScaleCounter: 1
+  camera: {fileID: 493607455}
 --- !u!1 &1468277675
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,6 +3338,7 @@ GameObject:
   - component: {fileID: 1754910867}
   - component: {fileID: 1754910866}
   - component: {fileID: 1754910865}
+  - component: {fileID: 1754910868}
   m_Layer: 5
   m_Name: Lives
   m_TagString: Untagged
@@ -3372,10 +3376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1268818171}
-  livesText: {fileID: 1754910866}
   jumpCounter: 0
   hero: {fileID: 1388676719}
-  playerHealth: {fileID: 1964777614}
 --- !u!114 &1754910866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3415,6 +3417,28 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1754910863}
+--- !u!114 &1754910868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1754910863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40536b60e4f084e4990dedc2ac9b056b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 7
+  movementSpeedRight: 4
+  movementSpeedLeft: 4
+  health: 100
+  healthText: {fileID: 1964777614}
+  lives: 3
+  livesText: {fileID: 1754910866}
+  hero: {fileID: 1388676719}
+  hero1: {fileID: 1388676722}
+  heroScaleCounter: 0
+  camera: {fileID: 0}
 --- !u!1 &1797327433
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,7 +3994,6 @@ GameObject:
   - component: {fileID: 1964777615}
   - component: {fileID: 1964777614}
   - component: {fileID: 1964777616}
-  - component: {fileID: 1964777617}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
@@ -4041,32 +4064,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1964777612}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8dbdbfd970fca74b9b781d5f2f31ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1268818171}
-  livesText: {fileID: 1754910866}
   jumpCounter: 0
-  hero: {fileID: 1388676719}
-  playerHealth: {fileID: 1964777614}
---- !u!114 &1964777617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1964777612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40536b60e4f084e4990dedc2ac9b056b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForce: 7
-  movementSpeedRight: 4
-  movementSpeedLeft: 4
-  health: 100
-  healthText: {fileID: 1964777614}
   hero: {fileID: 1388676719}
 --- !u!1 &2004423710
 GameObject:
