@@ -9,7 +9,7 @@ public class HeroScript : MonoBehaviour {
     //Hero declarations
     public float jumpForce = 10.0f;
     private bool onGround = false;
-    public int movementSpeed = 5;
+    public int movementSpeed = 10;
     private Animator anim;
     public float health = 100;
     public Text healthText;
