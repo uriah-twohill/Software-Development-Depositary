@@ -16,7 +16,7 @@ public class HeroScript : MonoBehaviour {
     public float lives = 3;
     public Text livesText;
 
-    Vector2 originalPosH;
+    Vector2 heroPosition;
     public GameObject hero;
     public Transform hero1;
     public int heroScaleCounter;
