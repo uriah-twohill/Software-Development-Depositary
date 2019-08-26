@@ -7,13 +7,14 @@ public class HeroScript : MonoBehaviour {
 
 
     //Hero declarations
-    public float jumpForce = 10.0f;
+    public float jumpF = 8;
     private bool onGround = false;
-    public int movementSpeed = 10;
+    public int movementSpeed = 8;
     private Animator anim;
     public float health = 100;
     public Text healthText;
     public float lives = 3;
+    private bool livesCounter = true;
     public Text livesText;
 
     Vector2 heroPosition;
@@ -23,10 +24,7 @@ public class HeroScript : MonoBehaviour {
 
     public Transform camera;
 
-    
-
-
-
+    public GameObject crate;
 
     void Start () {
         anim = GetComponent<Animator>();
@@ -39,13 +37,31 @@ public class HeroScript : MonoBehaviour {
         // Standing still animation.
         if (Input.anyKey == false && onGround == true)
         {
-            anim.SetInteger("Transition", 1);
+            if (health >= 20)
+            {
+                anim.SetInteger("Transition", 1);
+            }
+            else
+            {
+                anim.SetInteger("Transition", 5);
+            }
         }
 
-        Jump();
-        Running();
-        DisplayHealthAndLives();
-     }
+        if (Input.GetKeyDown("up") && onGround == true)
+        {
+            Jump();
+        }
+        if (Input.GetKey("right") && onGround == true)
+        {
+            Running();
+        }
+        else if (Input.GetKey("left") && onGround == true)
+        {
+            Running();
+        }
+        if (onGround == true)
+            DisplayHealthAndLives();
+    }
 
         //----------------------------------------------------------------------------------------------------------------------------//
        //----------------------------------------------------------Movement----------------------------------------------------------//
@@ -54,43 +70,58 @@ public class HeroScript : MonoBehaviour {
     // Jumping
     public void Jump()
     {
-        if (Input.GetKeyDown("up"))
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.AddForce(new Vector2(0f, jumpF), ForceMode2D.Impulse);
+        onGround = false;
+        if (health >= 20)
         {
-            if (onGround == true)
-            {
-                Rigidbody2D rb = GetComponent<Rigidbody2D>();
-                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                onGround = false;
-                anim.SetInteger("Transition", 3);
-                print("Hero has jumped");
-            }
+            anim.SetInteger("Transition", 3);
         }
+        else
+        {
+            anim.SetInteger("Transition", 7);
+        }
+        print("Hero has jumped");
     }
     // Running
     public void Running()
-    {
+    {   
         if (Input.GetKey("right") && onGround == true)
         {
-            if (Input.GetKey("right") && onGround == true && heroScaleCounter == 0)
+            if (heroScaleCounter == 0)
             {
                 transform.localScale = new Vector3(hero1.localScale.x * -1, transform.localScale.y, transform.localScale.z);
                 heroScaleCounter = 1;
             }
             Rigidbody2D rb1 = GetComponent<Rigidbody2D>();
-            rb1.velocity = new Vector2(movementSpeed, 0);
-            anim.SetInteger("Transition", 2);
+            rb1.velocity = new Vector2(movementSpeed, -4);
+            if (health >= 20)
+            {
+                anim.SetInteger("Transition", 2);
+            }
+            else
+            {
+                anim.SetInteger("Transition", 6);
+            }
         }
-
-        if (Input.GetKey("left") && onGround == true)
+        else if (Input.GetKey("left") && onGround == true)
         {
-            if (Input.GetKey("left") && onGround == true && heroScaleCounter == 1)
+            if (heroScaleCounter == 1)
             {
                 transform.localScale = new Vector3(hero1.localScale.x * -1, transform.localScale.y, transform.localScale.z);
                 heroScaleCounter = 0;
             }
             Rigidbody2D rb1 = GetComponent<Rigidbody2D>();
-            rb1.velocity = new Vector2(-movementSpeed, 0);
-            anim.SetInteger("Transition", 2);
+            rb1.velocity = new Vector2(-movementSpeed, -4);
+            if (health >= 20)
+            {
+                anim.SetInteger("Transition", 2);
+            }
+            else
+            {
+                anim.SetInteger("Transition", 6);
+            }
+
         }
     }
 
@@ -101,8 +132,8 @@ public class HeroScript : MonoBehaviour {
     // Ground detection.
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        onGround = true;
-        print("Hero has touched ground");
+            onGround = true;
+            print("Hero has touched ground");
     }
 
     // Display Health and Lives function.
@@ -113,10 +144,9 @@ public class HeroScript : MonoBehaviour {
             healthText.text = "H: " + health;
             livesText.text = "lives: " + lives;
         }
-        else
+        else 
         {
             HeroDies();
-            ReduceLife();     
         }
     }
 
@@ -130,10 +160,10 @@ public class HeroScript : MonoBehaviour {
         anim.SetInteger("Transition", 4);
         FreezeMovement();
         
-     //   if (lives >= 1)
-     //   {
+        if (lives >= 1)
+        {
             Invoke("Respawn", 1.5f);
-    //    }
+        }
         /*
         else ()
         {
@@ -142,21 +172,17 @@ public class HeroScript : MonoBehaviour {
         */
     }
 
-    // Reduces life
-    public void ReduceLife()
-    {
-        if (lives >= 1)
-        {
-            lives -= 1;
-        }
-    }
-
     // Respawns Hero and resets health to 100.
     public void Respawn()
     {
         anim.SetInteger("Transition", 5);
         transform.position = new Vector3(camera.position.x - 10, transform.position.y, transform.position.z);
         health = 100;
+        if (lives >= 1  && livesCounter == true)
+        {
+            lives -= 1;
+            livesCounter = false;
+        }
         UnFreezeMovement();
     }
 
@@ -166,6 +192,7 @@ public class HeroScript : MonoBehaviour {
     {
         onGround = false;
         gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        livesCounter = true;
     }
 
     public void UnFreezeMovement()
