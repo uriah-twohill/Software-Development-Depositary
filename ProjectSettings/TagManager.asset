@@ -7,6 +7,7 @@ TagManager:
   - prefab01
   - prefab02
   - prefab03
+  - Gun
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Pause
   - 
   - 
   - 

@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HeroScript : MonoBehaviour {
 
 
     //Hero declarations
     public float jumpF = 8;
-    private bool onGround = false;
+    public bool onGround = false;
     public int movementSpeed = 8;
     private Animator anim;
-    public float health = 100;
+    public float health = 100.0f;
     public Text healthText;
     public float lives = 3;
     private bool livesCounter = true;
@@ -21,19 +22,24 @@ public class HeroScript : MonoBehaviour {
     public GameObject hero;
     public Transform hero1;
     public int heroScaleCounter;
+    public GameObject camera;
+    Vector2 cameraPosition;
 
-    public Transform camera;
+
+   // public Transform camera;
 
     public GameObject crate;
 
     void Start () {
         anim = GetComponent<Animator>();
+        
     }
 	
      
     // Contains all movement code and user controlled animations.
 	void Update ()
     {
+        Time.timeScale = 1;
         // Standing still animation.
         if (Input.anyKey == false && onGround == true)
         {
@@ -59,8 +65,12 @@ public class HeroScript : MonoBehaviour {
         {
             Running();
         }
-        if (onGround == true)
-            DisplayHealthAndLives();
+        DisplayHealth();
+        if (Input.GetKeyDown("p"))
+        {
+            Time.timeScale = 0;
+            SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
+        }
     }
 
         //----------------------------------------------------------------------------------------------------------------------------//
@@ -137,11 +147,11 @@ public class HeroScript : MonoBehaviour {
     }
 
     // Display Health and Lives function.
-    public void DisplayHealthAndLives()
+    public void DisplayHealth()
     {
         if (health >= 0)
         {
-            healthText.text = "H: " + health;
+            healthText.text = "H: " + Mathf.Round(health);
             livesText.text = "lives: " + lives;
         }
         else 
@@ -149,6 +159,7 @@ public class HeroScript : MonoBehaviour {
             HeroDies();
         }
     }
+
 
         //------------------------------------------------------------------------------------------------------------------------------//
        //-----------------------------------------------------------Death--------------------------------------------------------------//
@@ -159,24 +170,24 @@ public class HeroScript : MonoBehaviour {
     {
         anim.SetInteger("Transition", 4);
         FreezeMovement();
-        
-        if (lives >= 1)
+        cameraPosition = new Vector2(camera.transform.position.x - 8, camera.transform.position.y -2.4f);
+        if (lives >= 2)
         {
             Invoke("Respawn", 1.5f);
         }
-        /*
-        else ()
+        
+        else
         {
-            Game over transition to be coded.
+            GameOver();
         }
-        */
     }
 
     // Respawns Hero and resets health to 100.
     public void Respawn()
     {
         anim.SetInteger("Transition", 5);
-        transform.position = new Vector3(camera.position.x - 10, transform.position.y, transform.position.z);
+        
+        hero.transform.position = cameraPosition;
         health = 100;
         if (lives >= 1  && livesCounter == true)
         {
@@ -199,5 +210,10 @@ public class HeroScript : MonoBehaviour {
     {
         onGround = true;
         gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");        
     }
 }

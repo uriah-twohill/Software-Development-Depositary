@@ -7,15 +7,14 @@ public class ScoreManager : MonoBehaviour
 {
 
     public Text scoreText;
-    private float score;
-    private float startTime;
+    public float score;
     
     public float jumpCounter;
 
 
     void Start()
     {
-
+       
     }
 
     void Update()
@@ -31,7 +30,7 @@ public class ScoreManager : MonoBehaviour
 
     public void ScoreIncrease()
     {
-        score = (int)(Time.time - startTime);
+        score = (int)(Time.timeSinceLevelLoad);
         score = score + jumpCounter;
         scoreText.text = "S: " + score;
     }
