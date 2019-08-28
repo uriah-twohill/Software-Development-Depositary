@@ -6,6 +6,7 @@ public class FuelCanPickup : MonoBehaviour {
 
     public HeroScript heroScript;
     public GameObject gameObject;
+    public SoundManager soundManager;
 
     // Use this for initialization
     private void OnTriggerEnter2D(Collider2D collision)
@@ -14,6 +15,7 @@ public class FuelCanPickup : MonoBehaviour {
         {
             heroScript.health += 10;
             gameObject.SetActive(false);
+            SoundManager.instance.PickupFuel();
         }
         else if (heroScript.health > 90 && heroScript.health < 100)
         {

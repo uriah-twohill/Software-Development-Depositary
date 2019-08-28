@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour {
 
     public Transform hero;
-    
+
     void FixedUpdate()
     {
         if (hero.position.x >= 10)
@@ -13,6 +13,6 @@ public class CameraScript : MonoBehaviour {
             transform.position = new Vector3(hero.position.x, transform.position.y, transform.position.z);
         }
     }
-    }
+}
     
 

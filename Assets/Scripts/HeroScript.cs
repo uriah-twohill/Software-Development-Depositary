@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class HeroScript : MonoBehaviour {
 
+    public SoundManager soundManager;
+
 
     //Hero declarations
     public float jumpF = 8;
@@ -24,6 +26,7 @@ public class HeroScript : MonoBehaviour {
     public int heroScaleCounter;
     public GameObject camera;
     Vector2 cameraPosition;
+
 
 
    // public Transform camera;
@@ -55,6 +58,7 @@ public class HeroScript : MonoBehaviour {
 
         if (Input.GetKeyDown("up") && onGround == true)
         {
+            SoundManager.instance.PlayJump();
             Jump();
         }
         if (Input.GetKey("right") && onGround == true)
@@ -89,6 +93,7 @@ public class HeroScript : MonoBehaviour {
         }
         else
         {
+            SoundManager.instance.PlayInjured();
             anim.SetInteger("Transition", 7);
         }
         print("Hero has jumped");
@@ -111,6 +116,7 @@ public class HeroScript : MonoBehaviour {
             }
             else
             {
+                SoundManager.instance.PlayInjured();
                 anim.SetInteger("Transition", 6);
             }
         }
@@ -129,6 +135,7 @@ public class HeroScript : MonoBehaviour {
             }
             else
             {
+                SoundManager.instance.PlayInjured();
                 anim.SetInteger("Transition", 6);
             }
 
@@ -156,6 +163,7 @@ public class HeroScript : MonoBehaviour {
         }
         else 
         {
+            
             HeroDies();
         }
     }
@@ -168,6 +176,7 @@ public class HeroScript : MonoBehaviour {
     // The Hero Dies.
     public void HeroDies()
     {
+        SoundManager.instance.PlayDie();
         anim.SetInteger("Transition", 4);
         FreezeMovement();
         cameraPosition = new Vector2(camera.transform.position.x - 8, camera.transform.position.y -2.4f);
@@ -186,7 +195,7 @@ public class HeroScript : MonoBehaviour {
     public void Respawn()
     {
         anim.SetInteger("Transition", 5);
-        
+        SoundManager.instance.PlayRespawn();
         hero.transform.position = cameraPosition;
         health = 100;
         if (lives >= 1  && livesCounter == true)

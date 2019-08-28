@@ -9,6 +9,7 @@ public class BulletScript : MonoBehaviour {
     public GameObject gun;
     Vector2 originalPosGun;
     private Animator anim;
+    public SoundManager soundManager;
 
     public ScoreManager scoreManager;
 
@@ -16,6 +17,7 @@ public class BulletScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        SoundManager.instance.BulletFire();
         anim = GetComponent<Animator>();
     }
 	
@@ -33,9 +35,11 @@ public class BulletScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         Debug.Log("bullet has collided");
         if (collision.gameObject.name == "Hero")
         {
+            SoundManager.instance.BulletCollision();
             if (scoreManager.score <= 20)
             {
                 heroScript.health -= 10;
@@ -69,8 +73,10 @@ public class BulletScript : MonoBehaviour {
 
     public void ResetBullet()
     {
+        
         bullet.SetActive(true);
         bullet.transform.position = originalPosGun;
+        SoundManager.instance.BulletFire();
     }
 
     public void MoveBullet()

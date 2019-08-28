@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScoreMovement : MonoBehaviour {
 
     public Transform camera;
+   
 
     void FixedUpdate()
     {
@@ -13,4 +14,6 @@ public class ScoreMovement : MonoBehaviour {
             transform.position = new Vector3(camera.position.x + 10f, transform.position.y, transform.position.z);
         }
     }
+
+    
 }

@@ -17,7 +17,6 @@ public class MovePrefab : MonoBehaviour
     public GameObject laser;
     public GameObject crate;
     public GameObject gun;
-    public GameObject door;
 
 
 
@@ -49,7 +48,7 @@ public class MovePrefab : MonoBehaviour
             int choice = Random.Range(0, 7);
             if (choice == 0)
             {
-                fuelCan.SetActive(true); laser.SetActive(true); crate.SetActive(true); gun.SetActive(false); door.SetActive(true);
+                fuelCan.SetActive(true); laser.SetActive(true); crate.SetActive(true); gun.SetActive(false);
             }
             else if (choice == 1)
             {
@@ -65,7 +64,7 @@ public class MovePrefab : MonoBehaviour
             }
             else if (choice == 4)
             {
-                crate.SetActive(false); gun.SetActive(false); fuelCan.SetActive(false); laser.SetActive(true); door.SetActive(true);
+                crate.SetActive(false); gun.SetActive(false); fuelCan.SetActive(false); laser.SetActive(true);
             }
             else if (choice == 5)
             {
@@ -77,7 +76,7 @@ public class MovePrefab : MonoBehaviour
             }
             else if (choice == 7)
             {
-                crate.SetActive(false); gun.SetActive(false); fuelCan.SetActive(false); laser.SetActive(false); door.SetActive(true);
+                crate.SetActive(false); gun.SetActive(false); fuelCan.SetActive(false); laser.SetActive(false);
             }
         }
         //  invisibleWall.SetActive(true);
